@@ -26,7 +26,7 @@ class NewVisitorTest(StaticLiveServerTestCase):
              
     def setUp(self):
         self.browser = webdriver.Firefox()
-
+        # self.browse.implicitly_wait(3)
     def tearDown(self):
         self.browser.quit()
 
@@ -64,7 +64,7 @@ class NewVisitorTest(StaticLiveServerTestCase):
 
         # She types "Buy peacock feathers" into a text box (Edith's hobby
         # is tying fly-fishing lures)
-        inputbox.send_keys('Buy peacock feathers')
+        inputbox.send_keys("Buy peacock feathers")
 
         # When she hits enter, the page updates, and now the page lists
         # "1: Buy peacock feathers" as an item in a to-do list table
