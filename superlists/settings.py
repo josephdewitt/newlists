@@ -27,9 +27,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'ubq%am9nu72%xhy8!rgygzflm4@#(1rw^5p%mtr0w9^vdgfk81'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['superlists-staging.jpd.jpsenior.com']
 
 
 # Application definition
