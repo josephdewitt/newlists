@@ -6,7 +6,7 @@ click==6.7
 constantly==15.1.0
 cryptography==1.7.1
 Django==1.10.5
-Fabric==1.13.1
+Fabric==1.13.2
 gunicorn==19.6.0
 hkdf==0.0.3
 humanize==0.5.1
