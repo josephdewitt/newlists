@@ -15,22 +15,24 @@ class NewVisitorTest(StaticLiveServerTestCase):
         for arg in sys.argv:
             if 'liveserver' in arg:
                 cls.server_url = 'http://' + arg.split('=')[1]
-                
-                cls.live_server_url = cls.server_url
-                return 
+#                cls.server_url = cls.server_url[:-1]
+
+#                cls.live_server_url = cls.server_url
+                return
         super().setUpClass()
-        cls.server_url = cls.live_server_url       
+        cls.server_url = cls.live_server_url
          
-    @classmethod
+#    @classmethod
 #    def tearDownClass(cls):
 #        if cls.server_url == cls.live_server_url:
-#            super().tearDownClass()
+#            super().tearDownClass()jpsen
              
     def setUp(self):
         self.browser = webdriver.Firefox()
         # self.browse.implicitly_wait(3)
     def tearDown(self):
         self.browser.quit()
+
 
 
     def wait_for_row_in_list_table(self, row_text):
@@ -89,7 +91,7 @@ class NewVisitorTest(StaticLiveServerTestCase):
 
     def test_multiple_users_can_start_lists_at_different_urls(self):
         # Edith start a new todo list
-        self.browser.get(self.live_server_url)
+        self.browser.get(self.server_url)
         inputbox = self.browser.find_element_by_id('id_new_item')
         inputbox.send_keys('Buy peacock feathers')
         inputbox.send_keys(Keys.ENTER)
