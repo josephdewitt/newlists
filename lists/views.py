@@ -2,6 +2,7 @@ from django.shortcuts import redirect, render
 from lists.models import Item, List
 from django.core.exceptions import ValidationError
 from lists.forms import ItemForm
+from django.views.generic import FormView
 
 def home_page(request):
     return render(request, 'home.html', {'form': ItemForm()})
@@ -26,3 +27,8 @@ def view_list(request, list_id):
             form.save(for_list=list_)
             return redirect(list_)
     return render(request, 'list.html', {'list': list_,'form' : form})
+
+
+class HomePageView(FormView):
+    template_name = 'home.html'
+    form_class = ItemForm
