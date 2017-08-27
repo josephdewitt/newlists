@@ -1,8 +1,10 @@
-import sys
+import os
 import time
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from selenium.common.exceptions import WebDriverException
+from .server_tools import reset_database
+
 
 MAX_WAIT = 10
 
@@ -10,7 +12,10 @@ class FunctionalTest(StaticLiveServerTestCase):
 
     def setUp(self):
         self.browser = webdriver.Firefox()
-    # self.browse.implicitly_wait(3)
+        self.staging_server = os.environ.get('STAGING_SERVER')
+        if self.staging_server:
+            self.live_server_url = 'http://' + self.staging_server
+            reset_database(self.staging_server)
 
     def tearDown(self):
         self.browser.quit()
@@ -44,11 +49,13 @@ class FunctionalTest(StaticLiveServerTestCase):
 
     @wait
     def wait_to_be_logged_in(self, email):
+        self.browser.find_element_by_link_text('Log out')
         navbar = self.browser.find_element_by_css_selector('.navbar')
         self.assertIn(email, navbar.text)
 
     @wait
     def wait_to_be_logged_out(self, email):
+        self.browser.find_element_by_name('email')
         navbar = self.browser.find_element_by_css_selector('.navbar')
         self.assertNotIn(email, navbar.text)
 
