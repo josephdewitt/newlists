@@ -4,12 +4,15 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from selenium.common.exceptions import WebDriverException
 from .server_tools import reset_database
-
+from selenium.webdriver.common.keys import Keys
 
 MAX_WAIT = 10
 
-class FunctionalTest(StaticLiveServerTestCase):
 
+
+
+
+class FunctionalTest(StaticLiveServerTestCase):
     def setUp(self):
         self.browser = webdriver.Firefox()
         self.staging_server = os.environ.get('STAGING_SERVER')
@@ -43,7 +46,6 @@ class FunctionalTest(StaticLiveServerTestCase):
     def wait_for(self, fn):
         return fn()
 
-
     def get_item_input_box(self):
         return self.browser.find_element_by_id('id_text')
 
@@ -59,3 +61,9 @@ class FunctionalTest(StaticLiveServerTestCase):
         navbar = self.browser.find_element_by_css_selector('.navbar')
         self.assertNotIn(email, navbar.text)
 
+    def add_list_item(self, item_text):
+        num_rows = len(self.browser.find_elements_by_css_selector('#id_list_table tr'))
+        self.get_item_input_box().send_keys(item_text)
+        self.get_item_input_box().send_keys(Keys.ENTER)
+        item_number = num_rows + 1
+        self.wait_for_row_in_list_table('%d:' % item_number + ' %s' % item_text)
