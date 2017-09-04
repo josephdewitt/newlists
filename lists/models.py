@@ -8,8 +8,16 @@ class List(models.Model):
 
 
 class Item(models.Model):
+    #id = models.IntegerField(default='',primary_key=True)
     text = models.TextField(default='')
     list = models.ForeignKey(List, default=None)
 
     class Meta:
-        unique_together = ('list', 'text')
+        ordering = ('id',)
+        unique_together = ('list','text')
+
+
+
+
+
+
